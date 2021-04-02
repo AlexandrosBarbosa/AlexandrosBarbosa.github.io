@@ -6,7 +6,16 @@
     <description>Recent content on Alexandros Barbosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shaq&#39;s Career</title>
+      <link>/2021/04/01/shaq-s-career/</link>
+      <pubDate>Thu, 01 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/04/01/shaq-s-career/</guid>
+      <description>library(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.3 v purrr 0.3.4## v tibble 3.0.6 v dplyr 1.0.3## v tidyr 1.1.2 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.1## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()log &amp;lt;- read_csv(&amp;#39;shaq-nba-career-regular-season-stats-by-game.csv&amp;#39;)## ## -- Column specification --------------------------------------------------------## cols(## .default = col_double(),## Date = col_date(format = &amp;quot;&amp;quot;),## Tm = col_character(),## Opp = col_character()## )## i Use `spec()` for the full column specifications.</description>
+    </item>
+    
     <item>
       <title>Sports Data Analysis and Visualization</title>
       <link>/2021/03/16/sports-data-analysis-and-visualization/</link>

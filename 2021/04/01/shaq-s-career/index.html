@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>Shaq&#39;s Career - Alexandros Barbosa</title>
+<meta property="og:title" content="Shaq&#39;s Career - Alexandros Barbosa">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">Shaq&#39;s Career</h1>
+
+    
+    <span class="article-date">2021-04-01</span>
+    
+
+    <div class="article-content">
+      
+<script src="/2021/04/01/shaq-s-career/index_files/header-attrs/header-attrs.js"></script>
+
+
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.0.6     v dplyr   1.0.3
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.1</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>log &lt;- read_csv(&#39;shaq-nba-career-regular-season-stats-by-game.csv&#39;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_double(),
+##   Date = col_date(format = &quot;&quot;),
+##   Tm = col_character(),
+##   Opp = col_character()
+## )
+## i Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>ggplot(log, aes(x = Tm)) + geom_bar()</code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>levels &lt;- as.character(c(1:19))
+
+ggplot() + 
+  geom_bar(data=log, aes(x=factor(FG, levels = levels), weight=`Season`))</code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>levels &lt;- as.character(c(1:19))
+ggplot() + geom_bar(data=log, aes(x=factor(FT, levels = levels), weight=`Season`))</code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>library(waffle)</code></pre>
+<pre><code>## Warning: package &#39;waffle&#39; was built under R version 4.0.4</code></pre>
+<pre class="r"><code>log &lt;- c(&quot;FTA&quot;=11252, &quot;FGA&quot;=19457)
+log &lt;- c(&quot;FTA&quot;=11252, &quot;FGA&quot;=19457)
+waffle(
+        log/20, 
+        rows = 40, 
+        title=&quot;Free throws attempts vs. Field goal attempts&quot;, 
+        xlab=&quot;1 square = 1 FTA or 3PA&quot;, 
+        colors = c(&quot;black&quot;, &quot;blue&quot;)
+        
+)</code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>log&lt;- c(&quot;BLK&quot;=2732, &quot;STL&quot;=739)
+iron(
+ waffle(log/10, 
+        rows = 14, 
+        title=&quot;Blocks vs.Steals&quot;, 
+        xlab=&quot;1 square = 2 BLK&quot;, 
+        colors = c(&quot;black&quot;, &quot;blue&quot;, &quot;white&quot;)
+        ),
+ 
+ waffle(log/10, 
+        rows = 14, 
+        title=&quot;Blocks vs.Steals&quot;, 
+        xlab=&quot;1 square = 2 STL&quot;, 
+        colors = c(&quot;black&quot;, &quot;blue&quot;, &quot;white&quot;)
+        )
+)</code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
