@@ -60,7 +60,7 @@
 
   <article class="article">
     
-    <span class="article-duration">1 min read</span>
+    <span class="article-duration">8 min read</span>
     
 
     <h1 class="article-title">Shaq&#39;s Career</h1>
@@ -74,6 +74,9 @@
 <script src="/2021/04/01/shaq-s-career/index_files/header-attrs/header-attrs.js"></script>
 
 
+<p>When in Shaq’s Career did, he Perform his best and how did he do it?</p>
+<p>Shaq’s one of the most dominant player ever in the NBA who started his career in Orlando.Shaq’s career really took off when he joined the Lakers where he would win three championships and later in his career he would join the Miami heat and win one more championship. So how did he do it on the court?
+We are going to Look at Shaq’s Career and when did he perform his best and how he did it offensively and defensively.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
 <pre><code>## v ggplot2 3.3.3     v purrr   0.3.4
@@ -93,46 +96,140 @@
 ##   Opp = col_character()
 ## )
 ## i Use `spec()` for the full column specifications.</code></pre>
-<pre class="r"><code>ggplot(log, aes(x = Tm)) + geom_bar()</code></pre>
-<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>log &lt;-read_csv(&quot;shaq-nba-career-regular-season-stats-by-game.csv&quot;) %&gt;% 
+  mutate(
+    Season = as.character(Season),
+    Date = as.Date(Date)
+    )</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_double(),
+##   Date = col_date(format = &quot;&quot;),
+##   Tm = col_character(),
+##   Opp = col_character()
+## )
+## i Use `spec()` for the full column specifications.</code></pre>
+<p>First thing first, I need to add date and points because we want to look at different data in Shaq’s career and add seasons in because we are going to look at the Shaq’s career by seasons and use the feature factor to help use be able to look at Shaq’s career in points seasons by season so we can compared them.</p>
+<p>Let’s take a look at the charts.</p>
+<pre class="r"><code>levels &lt;- as.character(c(1:19))
+ggplot() + geom_line(data=log, aes(x=Date, y=PTS), color=&quot;black&quot;) + 
+  geom_line(data=log, aes(x=Date, y=PTS), color=&quot;black&quot;) +
+  facet_wrap(.~factor(Season, levels = levels), scales = &quot;free_x&quot;)</code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>ggplot() + 
+  geom_line(data=log, aes(x=Date, y=PTS, group=Season))  </code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-4-2.png" width="672" />
+Now looking at the chart we see Shaq’s season 6-8 in Shaq’s career look like some his best for scoring and other seasons late in his career that look like his worst scoring wise.Our other chart shows us the years in Shaq’s career and that year 2000 Shaq was Scoring more compared to other years.</p>
+<p>To get an even closer look at Shaq’s seasons scoring we are going to use his scoring average as references line on our chart to get an even better separator to helps us see the differences between seasons easier.</p>
+<pre class="r"><code>log %&gt;% summarise(mean(PTS))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   `mean(PTS)`
+##         &lt;dbl&gt;
+## 1        23.7</code></pre>
+<pre class="r"><code>levels &lt;- as.character(c(1:19))
+ggplot() + 
+  geom_hline(yintercept=.4361078, color=&quot;blue&quot;) + 
+  geom_line(data=log, aes(x=Date, y=PTS, group=Season)) + 
+  facet_wrap(.~factor(Season,levels = levels), scales = &quot;free_x&quot;)</code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Now looking at the chart we see Shaq’s season 6-8 were indeed some of his best in his career in scoring and other seasons late in his career like 18-19 were some of his worst in his career scoring.</p>
+<pre class="r"><code>library(tidyverse)
+library(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="r"><code>log &lt;- read_csv(&#39;shaq-nba-career-regular-season-stats-by-game.csv&#39;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_double(),
+##   Date = col_date(format = &quot;&quot;),
+##   Tm = col_character(),
+##   Opp = col_character()
+## )
+## i Use `spec()` for the full column specifications.</code></pre>
+<p>The next sets of charts we are going to look at are bar charts with the first chart being an view of teams Shaq spent his career playing for to the next charts showing Shaq’s seasons Field goal and last show free throw a seasons Shaq had.</p>
+<p>With that in mind we are going to think back to the facet wrap charts we looked at earlier for Scoring during the seasons and see if the seasons with the season with most Field goal or seasons with most Free throw correlated to some of Shaq’s best and worst season or he had scoring from earlier.</p>
+<p>To find what we are looking for which is Teams Shaq played for in his Career we are going to plug in Tm/Team into our ggplot and do the exact same for other charts but just a different variable instead.</p>
 <pre class="r"><code>levels &lt;- as.character(c(1:19))
 
 ggplot() + 
-  geom_bar(data=log, aes(x=factor(FG, levels = levels), weight=`Season`))</code></pre>
-<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+  geom_bar(data=log, aes(x=factor(Tm,), weight=`SeasGm`))+
+scale_y_continuous(labels=comma) + 
+  labs(
+    title=&quot;Shaq&#39;s Career Teams &quot;, 
+    x=&quot;Teams&quot;, 
+    y=&quot;Seasons Games&quot;) + 
+   theme_minimal() </code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+Looking at the chart we see the obvious that Shaq spend most his career with the Lakers and the other end that Shaq spent the least amount of his career with the Boston Celtics. This Chart gives us an nice visual of both Teams Shaq played for and the amount of games he played with a certain teams his career.</p>
 <pre class="r"><code>levels &lt;- as.character(c(1:19))
-ggplot() + geom_bar(data=log, aes(x=factor(FT, levels = levels), weight=`Season`))</code></pre>
-<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+
+ggplot() + 
+  geom_bar(data=log, aes(x=factor(FG, levels = levels), weight=`Season`))+
+scale_y_continuous(labels=comma) + 
+  labs(
+    title=&quot;Shaq&#39;s Career Field Goals &quot;, 
+    x=&quot;Seasons&quot;, 
+    y=&quot;Field Goals&quot;) + 
+   theme_minimal() </code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Looking at the chart we see that Shaq had more field goals in the middle of his career and that it gradually went up earlier in his career and went down later in his career.</p>
+<p>Earlier we look at the seasons Shaq scored the most, with season 6-8 being some of the best scoring season for him.
+In this chart we see that Shaq had a lot of field goals during those Seasons.</p>
+<p>Think about that if we look the opposite end at the last couple of season here Shaq had one of the least amount of field goals for later in his career and if you recall from the facet wrap from earlier Shaq had one of his worst season in terms of scoring to.</p>
+<p>Base on charts we can link that more field goals helps with scoring more points.</p>
+<pre class="r"><code>levels &lt;- as.character(c(1:19))
+ggplot() + geom_bar(data=log, aes(x=factor(FT, levels = levels), weight=`Season`))+
+scale_y_continuous(labels=comma) + 
+  labs(
+    title=&quot;Shaq&#39;s Career Free throws &quot;,
+    x=&quot;Seasons&quot;, 
+    y=&quot;Free throws&quot;) + 
+   theme_minimal() </code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+Looking at the chart we See that Shaq had more Free throws earlier in his career and that it gradually went down later in his career.</p>
+<p>Earlier we look at the seasons Shaq scored the most, with season 6-8 being some of the best scoring season for him.</p>
+<p>Now looking at this chart we see that Shaq had a lot of free throws during those Seasons. With that if we look the opposite end at season 19 here Shaq had one of the least amount of free throw for a season and if you recall from the facet wrap from earlier Shaq had one of his worst season in terms of scoring.</p>
+<p>We could say base on that observation more free throws correlates to scoring more points.</p>
+<p>Next we are going to look at some of Shaq’s career stats in a waffle chart like Free throws attempts and Field goal attempts and other stats and get a more of visual how he impacted on court compared to other ways.</p>
+<p>The first step we are going to have our library and waffle since and put in the variables from our chart and the amount and to adjust amount to our rows.</p>
 <pre class="r"><code>library(waffle)</code></pre>
 <pre><code>## Warning: package &#39;waffle&#39; was built under R version 4.0.4</code></pre>
-<pre class="r"><code>log &lt;- c(&quot;FTA&quot;=11252, &quot;FGA&quot;=19457)
-log &lt;- c(&quot;FTA&quot;=11252, &quot;FGA&quot;=19457)
-waffle(
-        log/20, 
-        rows = 40, 
-        title=&quot;Free throws attempts vs. Field goal attempts&quot;, 
-        xlab=&quot;1 square = 1 FTA or 3PA&quot;, 
-        colors = c(&quot;black&quot;, &quot;blue&quot;)
-        
-)</code></pre>
-<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<pre class="r"><code>log&lt;- c(&quot;BLK&quot;=2732, &quot;STL&quot;=739)
-iron(
- waffle(log/10, 
-        rows = 14, 
-        title=&quot;Blocks vs.Steals&quot;, 
-        xlab=&quot;1 square = 2 BLK&quot;, 
-        colors = c(&quot;black&quot;, &quot;blue&quot;, &quot;white&quot;)
-        ),
- 
- waffle(log/10, 
-        rows = 14, 
-        title=&quot;Blocks vs.Steals&quot;, 
-        xlab=&quot;1 square = 2 STL&quot;, 
-        colors = c(&quot;black&quot;, &quot;blue&quot;, &quot;white&quot;)
-        )
-)</code></pre>
-<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<pre class="r"><code>log &lt;- c(&quot;Free throws attempts&quot;=5626, &quot;Field goal attempts&quot;=9728)
+log &lt;- c(&quot;Free throws attempts&quot;=5626, &quot;Field goal attempts&quot;=9728)
+waffle(log/20, rows = 20, xlab=&quot;1 square = 1 FTA or FGA&quot;, colors = c(&quot;black&quot;, &quot;blue&quot;, &quot;white&quot;)) + labs(title=&quot;Free throws attempts vs. Field goal attempts&quot;, subtitle=&quot;Shaq&#39;s Free throw attempts are nearly half of his Field goals attempts&quot;, caption=&quot;Source: Sports Statistics | Graphic by Alex Barbosa&quot;) + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10),
+    axis.title.y = element_blank()
+  )        </code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>log&lt;- c(&quot;Blocks&quot;=2732, &quot;Steals&quot;=739)
+waffle(log/10, rows = 14, xlab=&quot;1 square = 1 Block/Steal&quot;, colors = c(&quot;black&quot;, &quot;blue&quot;, &quot;white&quot;)) + labs(title=&quot;Blocks vs. Steals&quot;, subtitle=&quot;Shaq defensively impacted more by getting blocks compared to steal&quot;, caption=&quot;Source: Sports Statistics | Graphic by Alex Barbosa&quot;) + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10),
+    axis.title.y = element_blank()
+  )      </code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<pre class="r"><code>log&lt;- c(&quot;Offensive Rebounds&quot;=2104, &quot;Defensive Rebounds&quot;=4445)
+waffle(log/10, rows = 14, xlab=&quot;1 square = 1 Offensive Rebounds/Defensive Rebounds&quot;, colors = c(&quot;black&quot;, &quot;blue&quot;, &quot;white&quot;)) + labs(title=&quot;Offensive Rebounds vs. Defensive Rebounds &quot;, subtitle=&quot;Shaq collected more Defensive Rebounds over his career&quot;, caption=&quot;Source: Sports Statistics | Graphic by Alex Barbosa&quot;) + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10),
+    axis.title.y = element_blank()
+  )      </code></pre>
+<p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-12-3.png" width="672" />
+The Chart shows us that in Shaq’s career Free throws attempts were indeed a huge part in chances for Shaq to score but with that we expected Field goal attempts to be more but free throws were pretty measurable opportunities for shaq to score compared to Field goal attempts.</p>
+<p>The next chart we are looking at block vs. Steals and see base on the chart the Shaq’s defensive impacted in his career more by blocking opponents more compare to getting steals from his opponents.</p>
+<p>The last chart we see offensive Rebounds vs. Defensive Rebounds and that Shaq got more Defensive Rebounds over his career but Shaq collected decent amount of offensive Rebounds compared to Defensive Rebounds.</p>
 
     </div>
   </article>

@@ -13,7 +13,8 @@
       <pubDate>Thu, 01 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>/2021/04/01/shaq-s-career/</guid>
-      <description>library(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.3 v purrr 0.3.4## v tibble 3.0.6 v dplyr 1.0.3## v tidyr 1.1.2 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.1## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()log &amp;lt;- read_csv(&amp;#39;shaq-nba-career-regular-season-stats-by-game.csv&amp;#39;)## ## -- Column specification --------------------------------------------------------## cols(## .default = col_double(),## Date = col_date(format = &amp;quot;&amp;quot;),## Tm = col_character(),## Opp = col_character()## )## i Use `spec()` for the full column specifications.</description>
+      <description>When in Shaq’s Career did, he Perform his best and how did he do it?
+Shaq’s one of the most dominant player ever in the NBA who started his career in Orlando.Shaq’s career really took off when he joined the Lakers where he would win three championships and later in his career he would join the Miami heat and win one more championship. So how did he do it on the court?</description>
     </item>
     
   </channel>
