@@ -129,7 +129,7 @@ Now looking at the chart we see Shaq’s season 6-8 in Shaq’s career look like
 ## 1        23.7</code></pre>
 <pre class="r"><code>levels &lt;- as.character(c(1:19))
 ggplot() + 
-  geom_hline(yintercept=.4361078, color=&quot;blue&quot;) + 
+  geom_hline(yintercept=23.6918, color=&quot;blue&quot;) + 
   geom_line(data=log, aes(x=Date, y=PTS, group=Season)) + 
   facet_wrap(.~factor(Season,levels = levels), scales = &quot;free_x&quot;)</code></pre>
 <p><img src="/2021/04/01/shaq-s-career/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
