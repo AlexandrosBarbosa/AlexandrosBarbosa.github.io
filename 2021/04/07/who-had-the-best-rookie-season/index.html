@@ -77,12 +77,15 @@
 <p>Have you ever thought of hypothetical scenarios of NBA players and how they would compare against each other stat-wise?
 We are going to be doing this by looking at NBA rookies and try to find out who had the best rookie season. We are going to use rookie season data from the website Data World.We will be using the NBA seasons of 1980-2016.</p>
 <p>Since that’s a lot of data to use I’m going to narrow down the data by using our tool filter to only be looking at rookies who average at least 20 points their rookie season. The reason why I picked points is to really narrow down the data to get an even better picture of who had the best rookie season during our time period of 1980-2016.</p>
+<pre class="r"><code>library(ggrepel)</code></pre>
+<pre><code>## Warning: package &#39;ggrepel&#39; was built under R version 4.0.4</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.3     v purrr   0.3.4
-## v tibble  3.1.0     v dplyr   1.0.5
+<pre><code>## v tibble  3.1.0     v dplyr   1.0.5
 ## v tidyr   1.1.3     v stringr 1.4.0
-## v readr   1.4.0     v forcats 0.5.1</code></pre>
+## v readr   1.4.0     v forcats 0.5.1
+## v purrr   0.3.4</code></pre>
 <pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.5</code></pre>
 <pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.0.5</code></pre>
 <pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.5</code></pre>
@@ -120,7 +123,7 @@ ggplot() +
     horizontal = TRUE,
     color = &quot;red&quot;
   ) + 
-theme_minimal() + labs( title=&quot;Rookie Season Points Averages&quot;, subtitle=&quot;Michael Jordan Runs Away In Scoring. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) </code></pre>
+theme_minimal() + labs( title=&quot;Michael Jordan Runs Away In Scoring his Rookie Season&quot;, subtitle=&quot;Jordan leads in scoring easily with everyone eles right next to each other. &quot;,y=&quot;Name&quot;,x=&quot;Points Per Game&quot;,caption=&quot;Source: Data World | By Alex Barbosa&quot;) </code></pre>
 <p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 When we look at scoring for rookies we get a clear picture that Michael Jordan is best in terms scoring with the next closest player being David Robinson.</p>
 <pre class="r"><code>  ggplot() + 
@@ -135,7 +138,7 @@ When we look at scoring for rookies we get a clear picture that Michael Jordan i
     horizontal = TRUE,
     color = &quot;blue&quot;
   ) + 
-  theme_minimal() + labs( title=&quot;Rookie Season Rebounds Averages&quot;, subtitle=&quot;Shaq Dominates on the boards. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) </code></pre>
+  theme_minimal() + labs( title=&quot;Shaq Dominates On The Boards His Rookie Season&quot;, subtitle=&quot;Centers dominates on the boards their rookie season. &quot;,y=&quot;Name&quot;,x=&quot;Rebounds&quot;,caption=&quot;Source: Data World | By Alex Barbosa&quot;) </code></pre>
 <p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Looking at the rookies who average the most rebounds we see Shaq up there along with multiple other centers position guys right behind like Blake Griffin and David Robinson and Tim Duncan.</p>
 <pre class="r"><code>ggplot() + 
@@ -149,7 +152,7 @@ When we look at scoring for rookies we get a clear picture that Michael Jordan i
     aes(y=Name, x=AST),
     horizontal = TRUE,
     color = &quot;dark green&quot;
-  ) + theme_minimal() + labs( title=&quot;Rookie Season Assist Averages&quot;, subtitle=&quot;Allen Iverson Dishes Out Assist. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) </code></pre>
+  ) + theme_minimal() + labs( title=&quot;Allen Iverson Dishes Out Assist&quot;, subtitle=&quot;Allen Iverson leads rookies in assist with the rest of the pack far behind. &quot;,y=&quot;Name&quot;,x=&quot;Assist&quot;,caption=&quot;Source: Data World | By Alex Barbosa&quot;) </code></pre>
 <p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 We are next going to look at the rookies’ assist average leaders stat. We clearly see that Allen Iverson separates himself from the rest of the pack of rookies with both LeBron James and Michael Jordan tied at 2nd.</p>
 <pre class="r"><code>ggplot() + 
@@ -165,138 +168,99 @@ We are next going to look at the rookies’ assist average leaders stat. We clea
     color = &quot;purple&quot;
   ) +
   
-  theme_minimal() + labs( title=&quot;Rookie Season Free Throw Percentage&quot;, subtitle=&quot;Kevin Durant Converts Efficiently On The Free throw Line. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;)  </code></pre>
+  theme_minimal() + labs( title=&quot;Kevin Durant Converts Efficiently On The Free throw Line&quot;, subtitle=&quot;Kevin Durant efficient on the line with Michael Jordan barely behind. &quot;,y=&quot;Name&quot;,x=&quot;Free Throw Percentage&quot;,caption=&quot;Source: Data World | By Alex Barbosa&quot;)  </code></pre>
 <p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 Overall, the stats here just give us a general idea of which rookie players dominated but we do know if those players were efficient or if they were just taking a bunch of shots as a result of being on a bad team so they scored a bunch of points. Stat padding is a problem because it could make other players look better than they are. We will dive in deeper and look at charts with some of the same stats but also look at player efficiency which gives us a better look at player’s value.</p>
-<pre class="r"><code>library(tidyverse)
-library(ggbeeswarm)</code></pre>
-<pre><code>## Warning: package &#39;ggbeeswarm&#39; was built under R version 4.0.4</code></pre>
-<pre class="r"><code>library(ggrepel)</code></pre>
-<pre><code>## Warning: package &#39;ggrepel&#39; was built under R version 4.0.4</code></pre>
-<pre class="r"><code> Rookies &lt;- Rookies %&gt;% filter(PTS&gt;20) 
-ggplot() + geom_beeswarm(data=Rookies, aes(x=PTS, y=`FG%`), color=&quot;red&quot;)</code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<pre class="r"><code>ggplot() + geom_beeswarm(
-    data=Rookies, 
-    groupOnX=TRUE, 
-    aes(x=PTS, y=`FG%`), color=&quot;red&quot;) +  labs(x=&quot;Points&quot;, y=&quot;Field goal percentage&quot;, title=&quot;Michael Jordan scoring Dominance&quot;, subtitle=&quot;Michael Jordan out scores everyone and still has one of the top field goal percentage. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) +  
-  
-
-   theme(
-    plot.title = element_text(size = 16, face = &quot;bold&quot;),
-    axis.title = element_text(size = 8), 
-    plot.subtitle = element_text(size=10), 
-    panel.grid.minor = element_blank()
-    ) +
-    
-  geom_text_repel(
-    data=Rookies, 
-    aes(x=EFF,y=`MIN`, label=Name))</code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-8-2.png" width="672" />
-The first chart we are going to look at is rookie season points averages but this time we will also look at the field goal percentage too. This will help us get a better insight into who was scoring while also being effective. There could be players who shoot a lot of shots and average tons of points but they may not be as effective.</p>
-<p>Looking at the first chart, we see that Michael Jordan is averaging the most points by far while also having one of the top field goal percentages which shows us that Michael Jordan was very efficient. The next closest player is David Robinson who is more efficient while averaging four fewer points.</p>
-<p>In our next charts, we are going to look at EFF in basketball which stands for player efficiency. Efficiency is a total performance statistic that attempts to measure a player’s performance above the number of points produced and a benchmark that allows us to compare a player’s overall individual value to other players.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre class="r"><code> ggplot(Rookies, aes(x=PTS, y=`FG%`)) + 
-  geom_point(color=&quot;grey&quot;)+ geom_smooth(method=lm, se=FALSE)+ 
-  labs(x=&quot;Points per game&quot;, y=&quot;Field goal percentage&quot;, title=&quot;Michael Jordan scoring Dominance&quot;, subtitle=&quot;Michael Jordan out scores everyone and still has one of the top field goal percentages.&quot;, caption=&quot; Source:Data World | By Alex Barbosa&quot;)+theme_minimal() + 
+<pre class="r"><code>Rookies &lt;- Rookies %&gt;% filter(PTS&gt;20) 
+
+ggplot(Rookies, aes(x=PTS, y=`FG%`)) + 
+  geom_point(color=&quot;green&quot;)+ geom_smooth(method=lm, se=FALSE)+ 
+  labs(x=&quot;Points per game&quot;, y=&quot;Field goal percentage&quot;, title=&quot;Michael Jordan Dominance Scoring&quot;, subtitle=&quot;Michael Jordan leads in Scoring with having a high field goal percentage.&quot;, caption=&quot; Source:Data World | By Alex Barbosa&quot;)+theme_minimal() + 
   theme(
     plot.title = element_text(size = 16, face = &quot;bold&quot;)
     ) + geom_text_repel(
     data=Rookies, 
     aes(x=PTS,y=`FG%`, label=Name))</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<pre class="r"><code>  Rookies &lt;- Rookies %&gt;% filter(PTS&gt;20) 
-ggplot() + geom_beeswarm(data=Rookies, aes(x=EFF, y=`STL`), color=&quot;blue&quot;)</code></pre>
-<pre><code>## Warning in f(...): The default behavior of beeswarm has changed in version
-## 0.6.0. In versions &lt;0.6.0, this plot would have been dodged on the y-axis. In
-## versions &gt;=0.6.0, grouponX=FALSE must be explicitly set to group on y-axis.
-## Please set grouponX=TRUE/FALSE to avoid this warning and ensure proper axis
-## choice.</code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<pre class="r"><code>ggplot() + geom_beeswarm(
-  
-    data=Rookies, 
-    groupOnX=TRUE, 
-    aes(x=EFF, y=`STL`), color=&quot;blue&quot;) +  labs(x=&quot;Efficiency&quot;, y=&quot;Steals&quot;, title=&quot;Players efficiency while getting steals&quot;, subtitle=&quot;David Robinson leads in efficiency when getting steals,while Ron Harper collected the most steals. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) +  
-  
-
-   theme(
-    plot.title = element_text(size = 16, face = &quot;bold&quot;),
-    axis.title = element_text(size = 8), 
-    plot.subtitle = element_text(size=10), 
-    panel.grid.minor = element_blank()
-    ) </code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
-<pre class="r"><code>  geom_text_repel(
-    data=Rookies, 
-    aes(x=EFF,y=`MIN`, label=Name))</code></pre>
-<pre><code>## mapping: x = ~EFF, y = ~MIN, label = ~Name 
-## geom_text_repel: parse = FALSE, na.rm = FALSE, box.padding = 0.25, point.padding = 1e-06, min.segment.length = 0.5, arrow = NULL, force = 1, force_pull = 1, max.time = 0.5, max.iter = 10000, max.overlaps = 10, nudge_x = 0, nudge_y = 0, xlim = c(NA, NA), ylim = c(NA, NA), direction = both, seed = NA, verbose = FALSE
-## stat_identity: na.rm = FALSE
-## position_identity</code></pre>
-<p>In the next chart we are going to look at rookie player’s efficiency with getting steals. We see three rookies that stand out David Robinson, Michael Jordan, and Ron Harper.</p>
-<p>Ron Harper has the most amount of steals but the efficiency/value of his steals is lower compared to other players like Michael Jordan and David Robinson who had fewer steals but higher player efficiency when getting steals.</p>
-<pre class="r"><code>  Rookies &lt;- Rookies %&gt;% filter(PTS&gt;20) 
-ggplot() + geom_beeswarm(data=Rookies, aes(x=EFF, y=`BLK`), color=&quot;purple&quot;)</code></pre>
-<pre><code>## Warning in f(...): The default behavior of beeswarm has changed in version
-## 0.6.0. In versions &lt;0.6.0, this plot would have been dodged on the y-axis. In
-## versions &gt;=0.6.0, grouponX=FALSE must be explicitly set to group on y-axis.
-## Please set grouponX=TRUE/FALSE to avoid this warning and ensure proper axis
-## choice.</code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<pre class="r"><code>ggplot() + geom_beeswarm(
-    data=Rookies, 
-    groupOnX=TRUE, 
-    aes(x=EFF, y=`BLK`), color=&quot;purple&quot;) +  labs(x=&quot;Efficiency&quot;, y=&quot;Blocks&quot;, title=&quot;Players efficiency while on the court&quot;, subtitle=&quot;David Robinson dominate with having the most blocks with the highest player efficiency. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) +  
-  
-
-   theme(
-    plot.title = element_text(size = 16, face = &quot;bold&quot;),
-    axis.title = element_text(size = 8), 
-    plot.subtitle = element_text(size=10), 
-    panel.grid.minor = element_blank()
-    ) </code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
-<pre class="r"><code>  geom_text_repel(
-    data=Rookies, 
-    aes(x=EFF,y=`MIN`, label=Name))</code></pre>
-<pre><code>## mapping: x = ~EFF, y = ~MIN, label = ~Name 
-## geom_text_repel: parse = FALSE, na.rm = FALSE, box.padding = 0.25, point.padding = 1e-06, min.segment.length = 0.5, arrow = NULL, force = 1, force_pull = 1, max.time = 0.5, max.iter = 10000, max.overlaps = 10, nudge_x = 0, nudge_y = 0, xlim = c(NA, NA), ylim = c(NA, NA), direction = both, seed = NA, verbose = FALSE
-## stat_identity: na.rm = FALSE
-## position_identity</code></pre>
-<p>In the next chart I wanted to simplify things and just look at rookie player’s minutes and see their overall value on the floor while playing. We see from the chart that Michael Jordan played more minutes than David Robinson but his value on the court is just a little higher than Michael.</p>
+<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+The first chart we are going to look at is rookie season points per game but this time we will also look at the field goal percentage too. This will help us get a better insight into who was scoring while also being effective. There could be players who shoot a lot of shots and average tons of points but they may not be as effective.</p>
+<p>Looking at the first chart, we see that Michael Jordan is averaging the most points by far while also having one of the top field goal percentages which shows us that Michael Jordan was very efficient. The next closest player is David Robinson who is more efficient while averaging four fewer points.</p>
+<p>In our next charts, we are going to look at EFF in basketball which stands for player efficiency. Efficiency is a total performance statistic that attempts to measure a player’s performance above the number of points produced and a benchmark that allows us to compare a player’s overall individual value to other players.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
 <pre class="r"><code>Rookies &lt;- Rookies %&gt;% filter(PTS&gt;20) 
-ggplot() + geom_beeswarm(data=Rookies, aes(x=EFF, y=`MIN`), color=&quot;green&quot;)</code></pre>
-<pre><code>## Warning in f(...): The default behavior of beeswarm has changed in version
-## 0.6.0. In versions &lt;0.6.0, this plot would have been dodged on the y-axis. In
-## versions &gt;=0.6.0, grouponX=FALSE must be explicitly set to group on y-axis.
-## Please set grouponX=TRUE/FALSE to avoid this warning and ensure proper axis
-## choice.</code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<pre class="r"><code>ggplot() + geom_beeswarm(
+
+ ggplot(Rookies, aes(x=EFF, y=`STL`)) + 
+  geom_point(color=&quot;red&quot;)+ 
+  labs(x=&quot;Efficiency&quot;, y=&quot;Steals&quot;, title=&quot;Ron Harper Snatches Steals&quot;, subtitle=&quot;Ron Harper leads in steals but is middle of the pack in efficiency.&quot;, caption=&quot; Source:Data World | By Alex Barbosa&quot;)+theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;)
+    ) + geom_text_repel(
     data=Rookies, 
-    groupOnX=TRUE, 
-    aes(x=EFF, y=`MIN`), color=&quot;green&quot;) +  labs(x=&quot;Efficiency&quot;, y=&quot;Minutes&quot;, title=&quot;Players efficiency while on the court&quot;, subtitle=&quot;David Robinson leads in efficiency with Michael Jordan right behind him. &quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) +  
-  
-  
+    aes(x=EFF,y=`STL`, label=Name))</code></pre>
+<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+In this next chart we see rookie player’s efficiency with getting steals. We see three rookies that stand out David Robinson, Michael Jordan, and Ron Harper.</p>
+<p>Ron Harper has the most amount of steals but the efficiency/value of his steals is lower compared to other players like Michael Jordan and David Robinson who had fewer steals but higher player efficiency with getting steals is much higher.</p>
+<pre class="r"><code> Rookies &lt;- Rookies %&gt;% filter(PTS&gt;20) 
+
+ ggplot(Rookies, aes(x=EFF, y=`BLK`)) + 
+  geom_point(color=&quot;purple&quot;)+ geom_smooth(method=lm, se=FALSE)+ 
+  labs(x=&quot;Efficiency&quot;, y=&quot;Blocks&quot;, title=&quot;David Robinson Shuts Down opponents&quot;, subtitle=&quot;David Robinson racks up tons of blocks his rookie season.&quot;, caption=&quot; Source:Data World | By Alex Barbosa&quot;)+theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;)
+    
+    
+    ) + geom_text_repel(
+    data=Rookies, 
+    aes(x=EFF,y=`BLK`, label=Name))</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: ggrepel: 2 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps</code></pre>
+<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code> ggplot() + 
+  geom_point(data=Rookies, aes(x=EFF, y=`FG%`), color=&quot;light grey&quot;) +
+  geom_point(data=Rookies, aes(x=EFF, y=`FG%`)) +
+  geom_hline(yintercept=35, color=&quot;dark grey&quot;) + 
+  geom_vline(xintercept=20, color=&quot;dark grey&quot;) + 
+  geom_text(aes(x=27, y=46, label=&quot;Great Efficiency &quot;), color=&quot;blue&quot;) +
+  geom_text(aes(x=19, y=38, label=&quot;Average Efficiency&quot;), color=&quot;blue&quot;) +
+  geom_text_repel(data=Rookies, aes(x=EFF, y=`FG%`, label=Name)) +
+  labs(x=&quot;Efficiency&quot;, y=&quot;Field goal percentage&quot;, title=&quot;Shaq Scores efficiently &quot;, subtitle=&quot;Shaq leads rookies in scoring  field goal percentage while being efficient.&quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) +
+  theme_minimal() + 
   theme(
     plot.title = element_text(size = 16, face = &quot;bold&quot;),
-    axis.title = element_text(size = 8), 
-    plot.subtitle = element_text(size=10), 
-    panel.grid.minor = element_blank()
-    ) </code></pre>
-<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
-<pre class="r"><code>  geom_text_repel(
-    data=Rookies, 
-    aes(x=EFF,y=`MIN`, label=Name))</code></pre>
-<pre><code>## mapping: x = ~EFF, y = ~MIN, label = ~Name 
-## geom_text_repel: parse = FALSE, na.rm = FALSE, box.padding = 0.25, point.padding = 1e-06, min.segment.length = 0.5, arrow = NULL, force = 1, force_pull = 1, max.time = 0.5, max.iter = 10000, max.overlaps = 10, nudge_x = 0, nudge_y = 0, xlim = c(NA, NA), ylim = c(NA, NA), direction = both, seed = NA, verbose = FALSE
-## stat_identity: na.rm = FALSE
-## position_identity</code></pre>
-<p>In our last chart we are looking at another defensive stat but instead of steals, we are going to look at blocks. This time around we see that David Robinson is leading in blocks per game and is top in overall player value in this area with Shaq right behind.</p>
-<p>So far we are seeing a common trend with Michael Jordan and David Robinson nearly at the top among rookies in different areas measuring player’s value and stat-wise. In conclusion, the rookie who had the best rookie season from a time span of 1980-2016 was Michael Jordan with the next best guy being David Robinson.</p>
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 8),
+    axis.ticks = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  )</code></pre>
+<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-11-2.png" width="672" />
+I wanted to look deeper into field goal percentage so I decided to look made a chart that looks at players who have a great vs. average efficiency correlating to their field goal percentage.</p>
+<p>When we look at the chart we see some players like for today that we recognize like LeBron James and Kevin Durant who are in that average range for efficiency and who are at the lower end of field goal percentage along with Allen Iverson at the bottom.</p>
+<p>Now when we look at the other side we a lot of center position guys who haves great efficiency and have a good field goal percentage. We see Shaq with the highest field goal percentage along with David Robison up there with a slightly lower field goal percentage but a higher efficiency with Michael Jordan not far behind.</p>
+<p>Overall looking at the chart I notice a lot of rookies at the top are center position players. Center do typically do have a high field goal percentage than other position guys. So we look at the chart it makes it impressive to see other players who do not play the center position like Michel Jordan who was average the most point among the rookies among to still be near the top in field goal percentage and higher efficiency.</p>
+<p>In the next chart I wanted to simplify things and just look at rookie player’s minutes and see their overall value on the floor while playing.</p>
+<pre class="r"><code> ggplot() + 
+  geom_point(data=Rookies, aes(x=EFF, y=`MIN`), color=&quot;light grey&quot;) +
+  geom_point(data=Rookies, aes(x=EFF, y=MIN)) +
+  geom_hline(yintercept=35, color=&quot;blue&quot;) + 
+  geom_vline(xintercept=20, color=&quot;blue&quot;) + 
+  geom_text_repel(data=Rookies, aes(x=EFF, y=`MIN`, label=Name)) +
+  labs(x=&quot;Efficiency&quot;, y=&quot;Minutes&quot;, title=&quot;David Robinson effective while on the court&quot;, subtitle=&quot;David Robinson leads in efficiency with Michael Jordan right behind. The blue lines are averages.&quot;, caption=&quot;Source: Data World | By Alex Barbosa&quot;) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 8),
+    axis.ticks = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  )</code></pre>
+<p><img src="/2021/04/07/who-had-the-best-rookie-season/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>This chart gives us a simplified way to see all our player’s efficiency with the number of minutes they played their rookie season. We see players like Kevin Durant who played lower minutes played and has a low efficiency while we see LeBron and Allen Iverson with a lot of minutes played but are toward the middle inefficiency. Looking at the other end we see our top player on the right corner with the player with high efficiency along with a lot of minutes played.</p>
+<p>We see that Michael Jordan and David Robinson are in the area with top efficiency with playing around 36 to 38 minutes a game which shows us that their efficiency and value on the court when playing.</p>
+<p>We have seen a common trend with Michael Jordan and David Robinson nearly at the top among rookies in different areas measuring player’s value and stat-wise. In conclusion, the rookie who had the best rookie season from a time span of 1980-2016 was Michael Jordan with David Robinson being very close.</p>
 
     </div>
   </article>
